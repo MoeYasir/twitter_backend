@@ -37,6 +37,9 @@ catch(e){
     router.get("/:id",async (req, res)=>{
         const {id} = req.params;
         const oneUser = await prisma.user.findUnique({where: {id :Number(id)} })
+        if (!oneUser){
+            return res.status(400).json("User not found!")
+        }
         res.json(oneUser);
     
     })
@@ -52,10 +55,10 @@ try {
         }
     })
     
-res.status(501).json({error: `Not implemented: ${id}`})
+res.json(result);
 }
 catch(e){
-    res.status(400).json({error:e})
+    res.status(400).json({error:"Failed to updated user"})
 
 }
       
