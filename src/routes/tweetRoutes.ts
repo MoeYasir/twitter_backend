@@ -43,7 +43,7 @@ const allTweets= await prisma.tweet.findMany({include:{
     //list one tweet:
     router.get("/:id", async(req, res)=>{
         const {id} = req.params;
-        const oneTweet = await prisma.tweet.findUnique({where:{id : Number(id)}})
+        const oneTweet = await prisma.tweet.findUnique({where:{id : Number(id)}, include:{user:true}})
 if (!oneTweet){
     return res.status(400).json({error:"Tweet not found!"})
 }
